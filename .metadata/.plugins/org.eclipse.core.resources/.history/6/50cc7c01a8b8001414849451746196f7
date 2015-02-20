@@ -1,0 +1,34 @@
+package jimmymotors;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JMenuBar;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Color;
+
+public class AddCarView {
+	private static JTextField textField;
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		  JFrame main = new JFrame("A JFrame");
+	      main.setSize(500, 500);
+	      main.setLocation(300,200);
+	      main.getContentPane().setLayout(null);
+	      
+	      textField = new JTextField();
+	      textField.setBackground(Color.LIGHT_GRAY);
+	      textField.setBounds(6, 40, 95, 28);
+	      main.getContentPane().add(textField);
+	      textField.setColumns(10);
+	      
+	      JLabel lblNewLabel = new JLabel("Vin number");
+	      lblNewLabel.setBounds(113, 46, 80, 16);
+	      main.getContentPane().add(lblNewLabel);
+	      main.setVisible(true);
+		
+	}
+}

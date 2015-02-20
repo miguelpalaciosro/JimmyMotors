@@ -21,24 +21,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 public class Main {
 
 	public static void main(String[] args) {
-
-		// TODO Auto-generated method stub
-		System.out.print("test lol");
-       // AsyncHttpClient client = new AsyncHttpClient();
-//        try{
-//        URL yahoo = new URL("https://api.edmunds.com/api/vehicle/v2/vins/2G1FC3D33C9165616?fmt=json&api_key=hjew2hpbk4uhckx9pxyknseb");
-//        URLConnection yc = yahoo.openConnection();
-//        BufferedReader in = new BufferedReader(
-//                                new InputStreamReader(
-//                                yc.getInputStream()));
-//        String inputLine;
-//
-//        while ((inputLine = in.readLine()) != null) 
-//            System.out.println(inputLine);
-//        in.close();
-//        }catch(Exception e){
-//        	
-//        }
         
         Future<HttpResponse<JsonNode>> future = Unirest.post("https://api.edmunds.com/api/vehicle/v2/vins/2G1FC3D33C9165616?fmt=json&api_key=hjew2hpbk4uhckx9pxyknseb")
 				  .header("accept", "application/json")
@@ -65,7 +47,6 @@ public class Main {
 				    }
 
 				});
-        System.out.print("aaa");
         
 	}
 

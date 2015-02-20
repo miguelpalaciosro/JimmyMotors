@@ -1,0 +1,160 @@
+package jimmymotors;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JMenuBar;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Future;
+
+import javax.swing.JButton;
+
+import org.json.JSONObject;
+import org.omg.CORBA.portable.InputStream;
+
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.async.Callback;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import java.awt.Font;
+
+public class AddCarView {
+	private static JTextField textField;
+	private static JTextField modelTextField;
+	private static JTextField yearTextField;
+	private static JTextField makeTextField;
+	private static JTextField transmissionTextField;
+	private static JTextField colorTextField;
+	private static JTextField cylinderTextField;
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		  JFrame main = new JFrame("A JFrame");
+	      main.setSize(500, 500);
+	      main.setLocation(300,200);
+	      main.getContentPane().setLayout(null);
+	      
+	      textField = new JTextField();
+	      textField.setBackground(Color.LIGHT_GRAY);
+	      textField.setBounds(86, 40, 95, 28);
+	      main.getContentPane().add(textField);
+	      textField.setColumns(10);
+	      
+	      JLabel lblNewLabel = new JLabel("Vin number:");
+	      lblNewLabel.setBounds(6, 46, 80, 16);
+	      main.getContentPane().add(lblNewLabel);
+	      
+	      JButton btnSearch = new JButton("Search");
+	      btnSearch.setBounds(179, 41, 117, 29);
+	      main.getContentPane().add(btnSearch);
+	      
+	      JLabel lblModel = new JLabel("Model:");
+	      lblModel.setBounds(54, 86, 42, 16);
+	      main.getContentPane().add(lblModel);
+	      
+	      modelTextField = new JTextField();
+	      modelTextField.setBounds(96, 80, 95, 28);
+	      main.getContentPane().add(modelTextField);
+	      modelTextField.setColumns(10);
+	      
+	      JLabel lblYear = new JLabel("Year:");
+	      lblYear.setBounds(64, 114, 33, 16);
+	      main.getContentPane().add(lblYear);
+	      
+	      yearTextField = new JTextField();
+	      yearTextField.setBounds(96, 108, 95, 28);
+	      main.getContentPane().add(yearTextField);
+	      yearTextField.setColumns(10);
+	      
+	      JLabel lblMake = new JLabel("Make:");
+	      lblMake.setBounds(54, 142, 42, 16);
+	      main.getContentPane().add(lblMake);
+	      
+	      makeTextField = new JTextField();
+	      makeTextField.setBounds(96, 136, 95, 28);
+	      main.getContentPane().add(makeTextField);
+	      makeTextField.setColumns(10);
+	      
+	      JLabel lblTransmission = new JLabel("Transmission:");
+	      lblTransmission.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+	      lblTransmission.setBounds(6, 174, 95, 16);
+	      main.getContentPane().add(lblTransmission);
+	      
+	      transmissionTextField = new JTextField();
+	      transmissionTextField.setBounds(96, 168, 95, 28);
+	      main.getContentPane().add(transmissionTextField);
+	      transmissionTextField.setColumns(10);
+	      
+	      JLabel lblColor = new JLabel("Color:");
+	      lblColor.setBounds(54, 202, 42, 16);
+	      main.getContentPane().add(lblColor);
+	      
+	      colorTextField = new JTextField();
+	      colorTextField.setBounds(96, 196, 95, 28);
+	      main.getContentPane().add(colorTextField);
+	      colorTextField.setColumns(10);
+	      
+	      JLabel lblCylinder = new JLabel("Cylinder:");
+	      lblCylinder.setBounds(40, 230, 56, 16);
+	      main.getContentPane().add(lblCylinder);
+	      
+	      cylinderTextField = new JTextField();
+	      cylinderTextField.setBounds(96, 224, 95, 28);
+	      main.getContentPane().add(cylinderTextField);
+	      cylinderTextField.setColumns(10);
+	      main.setVisible(true);
+	      btnSearch.addActionListener(new ActionListener(){
+	    	  public void actionPerformed(ActionEvent e){
+	    		  Future<HttpResponse<JsonNode>> future = Unirest.post("https://api.edmunds.com/api/vehicle/v2/vins/"+  textField.getText().toString() + "?fmt=json&api_key=hjew2hpbk4uhckx9pxyknseb")
+	    				  .header("accept", "application/json")
+	    				  .asJsonAsync(new Callback<JsonNode>() {
+	    				    public void failed(UnirestException e) {
+	    				        System.out.println("The request has failed");
+//	    				        2G1FC3D33C9165616
+	    				    }
+
+	    				    public void completed(HttpResponse<JsonNode> response) {
+	    				        System.out.println("The request has compeleted");
+
+	    				         int code = response.getStatus();
+	    				         Map<String, List<String>> headers = response.getHeaders();
+	    				         JsonNode body = response.getBody();
+	    				         JSONObject json = body.getObject();
+	    				         String modelString = json.getJSONObject("model").getString("name");
+	    				         //String yearString = json.getJSONArray("years").getJSONObject(1).getString("year");
+	    				         String makeString = json.getJSONObject("make").getString("name");
+	    				         String transmissionString = json.getJSONObject("transmission").getString("transmissionType");
+	    				         JSONObject colorJson = json.getJSONObject("colors");
+	    				         String colorString = colorJson.getJSONObject("options").getString("manufactureOptionName");
+//	    				         String cylinderString = json.getJSONObject("equipment").getString("cylinder");
+	    				         
+	    				         modelTextField.setText(modelString);
+	    				         //yearTextField.setText(yearString);
+	    				         makeTextField.setText(makeString);
+	    				         transmissionTextField.setText(transmissionString);
+	    				         colorTextField.setText(colorString);
+//	    				         cylinderTextField.setText(cylinderString);
+	    				         
+	    				         InputStream rawBody = (InputStream) response.getRawBody();
+	    				         
+	    				    }
+
+	    				    public void cancelled() {
+	    				        System.out.println("The request has been cancelled");
+	    				    }
+
+	    				});
+	    	  }
+	      });
+		
+	}
+}

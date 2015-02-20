@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.net.URLConnection"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="com.ning.http.client.AsyncHttpClient"/>
+<fullyQualifiedTypeName name="com.mashape.unirest.http.HttpResponse"/>
+<fullyQualifiedTypeName name="com.mashape.unirest.http.JsonNode"/>
+<fullyQualifiedTypeName name="com.mashape.unirest.http.Unirest"/>
+<fullyQualifiedTypeName name="java.util.concurrent.Future"/>
+<fullyQualifiedTypeName name="com.mashape.unirest.http.async.Callback"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="org.omg.CORBA.portable.InputStream"/>
+</qualifiedTypeNameHistroy>
